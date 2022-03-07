@@ -1,6 +1,10 @@
-import {discord_client as client} from "./index.mjs";
-import {getScreenshot, ResizeAndEncodeImageToWebp} from "./image.mjs";
+import {getScreenshot, ImageToWebp, ResizeAndEncodeImageToWebp} from "./image.mjs";
 import fetch from "node-fetch";
+
+import {marked} from "marked";
+import {Client, Intents} from "discord.js";
+
+const client = new Client({ intents: [Intents.FLAGS.GUILDS,Intents.FLAGS.GUILD_MESSAGES] });
 
 export const DiscordSetup = ()=>{
     client.once('ready',e=>{
@@ -19,16 +23,24 @@ export const DiscordSetup = ()=>{
                 return
             }
             (async ()=>{
-                // const url = attachment.url
-                // const response = await fetch(url)
-                // if(!response.ok){
-                //     e.reply("画像のダウンロードに失敗しました")
-                // }
+                const url = attachment.url
+                const response = await fetch(url)
+                if(!response.ok){
+                    e.reply("画像のダウンロードに失敗しました")
+                }
 
-                //const bufferData = new Buffer(await response.arrayBuffer())
-                const bufferData = new Buffer(await getScreenshot(''))
-                const d = await ResizeAndEncodeImageToWebp(bufferData)
+                const bufferData = new Buffer(await response.arrayBuffer())
 
+                let d = await ResizeAndEncodeImageToWebp(bufferData)
+
+                e.reply("背景画像をWebpに変換中")
+
+                if(e.content.length > 0){
+                    e.reply("マークダウンを適用中")
+                    d = await ImageToWebp(await getScreenshot(Buffer.from(d).toString('base64'),marked(e.content)))
+                }
+
+                e.reply("完成画像をWebpに変換中")
                 const convertedBufferData = Buffer.from(d)
 
                 const sendOption = {
