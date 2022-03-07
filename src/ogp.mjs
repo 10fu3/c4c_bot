@@ -16,7 +16,7 @@ export const OgpRouterSetup = ()=>{
     router.get("/ogp",async (ctx)=>{
         ctx.response.status = 200
         const discordURL = ctx.request.query['target']
-        console.log(discordURL)
+        //console.log(discordURL)
 
         if(!discordURL){
             return
@@ -31,7 +31,7 @@ export const OgpRouterSetup = ()=>{
         const targetResponse = await fetch(`https://cdn.discordapp.com/${matchedURL[0]}`)
 
         if(!targetResponse.ok){
-            console.log(targetResponse.status)
+            //console.log(targetResponse.status)
             return
         }
         ctx.response.set("content-type", "image/webp");

@@ -12,6 +12,26 @@ export const DiscordSetup = ()=>{
     })
 
     client.on('messageCreate',async e=>{
+        if(e.author.bot){
+            return
+        }
+        if(e.mentions.has(client.user) && e.content.includes(".rebuild")){
+            e.reply("リビルドします")
+
+            const r = await fetch(`https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/${ !!process.env.CLOUD_FLARE_KEY ? process.env.CLOUD_FLARE_KEY : 'cac0ed61-09bd-4085-a2c6-5b279ac57d28' }`,
+                {
+                    method: 'POST'
+                })
+
+            if(r.ok){
+                e.reply("実行中です")
+            }else{
+                e.reply("コマンドの実行に失敗しました")
+            }
+        }
+    })
+
+    client.on('messageCreate',async e=>{
 
         if (e.author.bot){
             return;
@@ -60,5 +80,5 @@ export const DiscordSetup = ()=>{
             })()
         })
     })
-    client.login('OTQ5MjE5NTIzNjY2NTQyNTky.YiHLkg.c63DIPD3vQetA6JfeYPTy12F3xw')
+    client.login(!!process.env.DISCORD_TOKEN ? process.env.DISCORD_TOKEN : 'OTQ5MjE5NTIzNjY2NTQyNTky.YiHLkg.c63DIPD3vQetA6JfeYPTy12F3xw')
 }
