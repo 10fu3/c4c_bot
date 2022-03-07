@@ -1,7 +1,11 @@
 {
   "main": "src/index.js",
   "scripts": {
-    "start": "node --experimental-modules src/index.mjs"
+    "start": "node src/index.js",
+    "heroku-postbuild": "npm run build"
+  },
+  "engines": {
+    "node": "16.x"
   },
   "dependencies": {
     "discord.js": "^13.6.0",
