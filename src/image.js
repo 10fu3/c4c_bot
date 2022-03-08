@@ -31,7 +31,7 @@ async function getPage() {
 exports.getScreenshot = async (backgroundBase64,markdown) => {
     const page = await getPage();
     await page.setViewport({ width: 700, height: 700 });
-    await page.setContent(getHtml(backgroundBase64,markdown));
+    await page.setContent(exports.getHtml(backgroundBase64,markdown));
     const file = await page.screenshot();
     return file;
 }
