@@ -1,0 +1,20 @@
+{
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "koa": "^2.13.4",
+    "koa-router": "^10.1.1",
+    "marked": "^4.0.12",
+    "node-fetch": "^2.6.7",
+    "puppeteer": "^13.4.1",
+    "sanitize-html": "^2.7.0",
+    "sharp": "^0.30.2",
+    "twemoji": "^13.1.0"
+  }
+}
