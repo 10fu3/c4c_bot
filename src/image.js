@@ -1,6 +1,8 @@
-import sharp from "sharp"
+const Sharp = require("sharp")
 
-import * as puppeteer from 'puppeteer'
+// import * as puppeteer from 'puppeteer'
+
+const puppeteer = require("puppeteer")
 
 // import twemoji from "twemoji";
 // const twOptions = { folder: 'svg', ext: '.svg' };
@@ -26,7 +28,7 @@ async function getPage() {
     return _page;
 }
 
-export async function getScreenshot(backgroundBase64,markdown) {
+exports.getScreenshot = async (backgroundBase64,markdown) => {
     const page = await getPage();
     await page.setViewport({ width: 700, height: 700 });
     await page.setContent(getHtml(backgroundBase64,markdown));
@@ -34,7 +36,7 @@ export async function getScreenshot(backgroundBase64,markdown) {
     return file;
 }
 
-export function getHtml(backgroundBase64,markdown) {
+exports.getHtml = (backgroundBase64,markdown)=>{
     return `<html>
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet"/> 
@@ -74,8 +76,8 @@ export function getHtml(backgroundBase64,markdown) {
 </html>`;
 }
 
-export const ImageToWebp = async(item)=>{
-    const buf =  await sharp(item)
+exports.ImageToWebp = async(item)=>{
+    const buf =  await Sharp(item)
         .webp({
             quality: 75
         })
@@ -84,8 +86,8 @@ export const ImageToWebp = async(item)=>{
     return buf
 }
 
-export const ResizeAndEncodeImageToWebp = async(item)=>{
-    const buf =  await sharp(item)
+exports.ResizeAndEncodeImageToWebp = async(item)=>{
+    const buf =  await Sharp(item)
         .resize(700,700)
         .webp({
             quality: 75

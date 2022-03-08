@@ -1,9 +1,9 @@
-import Router from "koa-router"
-import Koa from "koa";
+const Router = require("koa-router")
+const Koa = require("koa");
 
-import fetch from "node-fetch";
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
-export const OgpRouterSetup = ()=>{
+exports.OgpRouterSetup = ()=>{
 
     const app = new Koa()
 

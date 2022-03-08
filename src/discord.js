@@ -1,12 +1,19 @@
-import {getScreenshot, ImageToWebp, ResizeAndEncodeImageToWebp} from "./image.mjs";
-import fetch from "node-fetch";
+//import {getScreenshot, ImageToWebp, ResizeAndEncodeImageToWebp} from "./image.js";
+//import fetch from "node-fetch";
 
-import {marked} from "marked";
-import {Client, Intents} from "discord.js";
+//import {marked} from "marked";
+// import {Client, Intents} from "discord.js";
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS,Intents.FLAGS.GUILD_MESSAGES] });
 
-export const DiscordSetup = ()=>{
+const Image = require("./image")
+const Marked = require('marked');
+const Discord = require('discord.js');
+const Fetch = require("node-fetch")
+
+exports.DiscordSetup = function(){
+
+    const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS,Discord.Intents.FLAGS.GUILD_MESSAGES] });
+
     client.once('ready',e=>{
         console.log("[Ready] Bot ready to command!");
     })
@@ -18,7 +25,8 @@ export const DiscordSetup = ()=>{
         if(e.mentions.has(client.user) && e.content.includes(".rebuild")){
             e.reply("リビルドします")
 
-            const r = await fetch(`https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/${ !!process.env.CLOUD_FLARE_KEY ? process.env.CLOUD_FLARE_KEY : 'cac0ed61-09bd-4085-a2c6-5b279ac57d28' }`,
+
+            const r = await Fetch(`https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/${ !!process.env.CLOUD_FLARE_KEY ? process.env.CLOUD_FLARE_KEY : 'cac0ed61-09bd-4085-a2c6-5b279ac57d28' }`,
                 {
                     method: 'POST'
                 })
@@ -51,13 +59,13 @@ export const DiscordSetup = ()=>{
 
                 const bufferData = new Buffer(await response.arrayBuffer())
 
-                let d = await ResizeAndEncodeImageToWebp(bufferData)
+                let d = await Image.ResizeAndEncodeImageToWebp(bufferData)
 
                 e.reply("背景画像をWebpに変換中")
 
                 if(e.content.length > 0){
                     e.reply("マークダウンを適用中")
-                    d = await ImageToWebp(await getScreenshot(Buffer.from(d).toString('base64'),marked(e.content)))
+                    d = await Image.ImageToWebp(await Image.getScreenshot(Buffer.from(d).toString('base64'),Marked.marked(e.content)))
                 }
 
                 e.reply("完成画像をWebpに変換中")
