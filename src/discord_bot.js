@@ -2,7 +2,7 @@
 //import fetch from "node-fetch";
 
 //import {marked} from "marked";
-// import {Client, Intents} from "discord.js";
+// import {Client, Intents} from "discord_bot.js";
 
 
 const Image = require("./image")

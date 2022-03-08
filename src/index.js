@@ -5,6 +5,6 @@
 // OgpRouterSetup()
 
 const {OgpRouterSetup} = require("./ogp");
-const {DiscordSetup} = require("./discord");
+const {DiscordSetup} = require("./discord_bot");
 DiscordSetup()
 OgpRouterSetup()
