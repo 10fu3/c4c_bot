@@ -1,0 +1,32 @@
+{
+  "name": "c4c_bot",
+  "version": "1.0.0",
+  "description": "c4c bot",
+  "engines": {
+    "node": "16.x"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10fu3/c4c_bot.git"
+  },
+  "author": "10fu3",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/10fu3/c4c_bot/issues"
+  },
+  "homepage": "https://github.com/10fu3/c4c_bot#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "koa": "^2.13.4",
+    "koa-router": "^10.1.1",
+    "marked": "^4.0.12",
+    "node-fetch": "^2.6.7",
+    "puppeteer": "^13.5.0",
+    "sharp": "^0.30.2"
+  }
+}
