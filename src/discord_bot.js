@@ -52,7 +52,7 @@ exports.DiscordSetup = function(){
             }
             (async ()=>{
                 const url = attachment.url
-                const response = await fetch(url)
+                const response = await Fetch(url)
                 if(!response.ok){
                     e.reply("画像のダウンロードに失敗しました")
                 }
