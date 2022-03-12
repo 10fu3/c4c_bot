@@ -48,8 +48,8 @@ exports.getHtml = (backgroundBase64,markdown)=>{
             margin:0;
         }
         strong{
-            font-weight: bold;
-            /*font-family: "游明朝", YuMincho, "Hiragino Mincho ProN W3", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;*/
+            font-weight: 700;
+            font-family: "游明朝", YuMincho, "Hiragino Mincho ProN W3", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
             font-size: 75px;
         }
     </style>
