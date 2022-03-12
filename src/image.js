@@ -39,19 +39,17 @@ exports.getScreenshot = async (backgroundBase64,markdown) => {
 exports.getHtml = (backgroundBase64,markdown)=>{
     return `<html>
     <head>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet"/> 
+<!--        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet"/> -->
     </head>
     <style>
-        body{
-            font-family: 'Open Sans', sans-serif;
-        }
+       
         p{
             padding:0;
             margin:0;
         }
         strong{
             font-weight: bold;
-            font-family: "游明朝", YuMincho, "Hiragino Mincho ProN W3", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+            /*font-family: "游明朝", YuMincho, "Hiragino Mincho ProN W3", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;*/
             font-size: 75px;
         }
     </style>
