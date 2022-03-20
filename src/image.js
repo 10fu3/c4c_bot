@@ -42,7 +42,10 @@ exports.getHtml = (backgroundBase64,markdown)=>{
 <!--        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet"/> -->
     </head>
     <style>
-       
+       @import url('https://fonts.googleapis.com/earlyaccess/notosansjp.css');
+       body{
+            font-family: 'Noto Sans JP', sans-serif;
+       }
         p{
             padding:0;
             margin:0;
