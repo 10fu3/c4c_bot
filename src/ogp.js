@@ -47,9 +47,9 @@ exports.OgpRouterSetup = ()=>{
                 return await targetResponse.buffer()
             }
 
-            const bufferData = new Buffer(await targetResponse.arrayBuffer())
+            const bufferData = await targetResponse.buffer()
 
-            const d = await Image.ImageToWebp(Image.getScreenshot(bufferData).toString('base64'),Marked.marked(ogpTitle))
+            const d = await Image.ImageToWebp(await Image.getScreenshot(bufferData.toString('base64'),Marked.marked(ogpTitle)))
 
             return Buffer.from(d)
         })()
