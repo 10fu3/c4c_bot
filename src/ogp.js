@@ -1,3 +1,8 @@
+//import Image from "./image";
+//import Marked from "marked";
+
+const Marked = require("marked")
+const Image = require("./image")
 const Router = require("koa-router")
 const Koa = require("koa");
 
@@ -35,7 +40,20 @@ exports.OgpRouterSetup = ()=>{
             return
         }
         ctx.response.set("content-type", "image/webp");
-        ctx.body = await targetResponse.buffer()
+
+        ctx.body = await (async ()=>{
+            const ogpTitle = ctx.request.query['ogp_title']
+            if(!ogpTitle){
+                return await targetResponse.buffer()
+            }
+
+            const bufferData = new Buffer(await targetResponse.arrayBuffer())
+
+            const d = await Image.ImageToWebp(Image.getScreenshot(bufferData).toString('base64'),Marked.marked(ogpTitle))
+
+            return Buffer.from(d)
+        })()
+        //ctx.body = await targetResponse.buffer()
     })
 
     app.use(router.routes())
