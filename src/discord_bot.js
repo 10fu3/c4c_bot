@@ -26,7 +26,7 @@ exports.DiscordSetup = function(){
             e.reply("リビルドします")
 
 
-            const r = await Fetch(`https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/${ !!process.env.CLOUD_FLARE_KEY ? process.env.CLOUD_FLARE_KEY : 'cac0ed61-09bd-4085-a2c6-5b279ac57d28' }`,
+            const r = await Fetch(`https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/${ !!process.env.CLOUD_FLARE_KEY ? process.env.CLOUD_FLARE_KEY : '' }`,
                 {
                     method: 'POST'
                 })
@@ -88,5 +88,5 @@ exports.DiscordSetup = function(){
             })()
         })
     })
-    client.login(!!process.env.DISCORD_TOKEN ? process.env.DISCORD_TOKEN : 'OTQ5MjE5NTIzNjY2NTQyNTky.YiHLkg.c63DIPD3vQetA6JfeYPTy12F3xw')
+    client.login(!!process.env.DISCORD_TOKEN ? process.env.DISCORD_TOKEN : '')
 }
