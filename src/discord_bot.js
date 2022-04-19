@@ -59,15 +59,25 @@ exports.DiscordSetup = function(){
 
                 const bufferData = new Buffer(await response.arrayBuffer())
 
-                let d = await Image.ResizeAndEncodeImageToWebp(bufferData)
+                const base = await Image.ResizeAndEncodeImageToWebp(bufferData)
 
                 await e.reply("背景画像をWebpに変換中")
 
+                await e.reply({
+                    files:[
+                        {
+                            attachment: Buffer.from(base),
+                            name: attachment.name.substring(0, attachment.name.lastIndexOf("."))+'.webp',
+                        }
+                    ]
+                })
+
                 if(e.content.length > 0){
                     await e.reply("マークダウンを適用中")
-                    d = await Image.ImageToWebp(await Image.getScreenshot(Buffer.from(d).toString('base64'),Marked.marked(e.content)))
+                    const markedImage = await Image.ImageToWebp(await Image.getScreenshot(Buffer.from(base).toString('base64'),Marked.marked(e.content)))
 
-                    const convertedBufferData = Buffer.from(d)
+                    await e.reply("完成画像をWebpに変換中")
+                    const convertedBufferData = Buffer.from(markedImage)
 
                     const sendOption = {
                         files:[
@@ -78,26 +88,12 @@ exports.DiscordSetup = function(){
                         ]
                     }
 
-                    await e.reply(sendOption)
+                    if(e.content.length > 0){
+                        sendOption.content = e.content
+                    }
+
+                    const r = await e.reply(sendOption)
                 }
-
-                await e.reply("完成画像をWebpに変換中")
-                const convertedBufferData = Buffer.from(d)
-
-                const sendOption = {
-                    files:[
-                        {
-                            attachment: convertedBufferData,
-                            name: attachment.name.substring(0, attachment.name.lastIndexOf("."))+'.webp',
-                        }
-                    ]
-                }
-
-                if(e.content.length > 0){
-                    sendOption.content = e.content
-                }
-
-                const r = await e.reply(sendOption)
             })()
         })
     })
