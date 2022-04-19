@@ -63,14 +63,22 @@ exports.DiscordSetup = function(){
 
                 await e.reply("背景画像をWebpに変換中")
 
-                await e.reply({files:[{
-                        attachment: Buffer.from(d),
-                        name: attachment.name.substring(0, attachment.name.lastIndexOf("."))+'.webp',
-                    }]})
-
                 if(e.content.length > 0){
                     await e.reply("マークダウンを適用中")
                     d = await Image.ImageToWebp(await Image.getScreenshot(Buffer.from(d).toString('base64'),Marked.marked(e.content)))
+
+                    const convertedBufferData = Buffer.from(d)
+
+                    const sendOption = {
+                        files:[
+                            {
+                                attachment: convertedBufferData,
+                                name: attachment.name.substring(0, attachment.name.lastIndexOf("."))+'.webp',
+                            }
+                        ]
+                    }
+
+                    await e.reply(sendOption)
                 }
 
                 await e.reply("完成画像をWebpに変換中")
