@@ -64,7 +64,7 @@ exports.DiscordSetup = function(){
                 await e.reply("背景画像をWebpに変換中")
 
                 await e.reply({files:[{
-                        attachment: d,
+                        attachment: Buffer.from(d),
                         name: attachment.name.substring(0, attachment.name.lastIndexOf("."))+'.webp',
                     }]})
 
