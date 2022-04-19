@@ -61,14 +61,19 @@ exports.DiscordSetup = function(){
 
                 let d = await Image.ResizeAndEncodeImageToWebp(bufferData)
 
-                e.reply("背景画像をWebpに変換中")
+                await e.reply("背景画像をWebpに変換中")
+
+                await e.reply({files:[{
+                        attachment: d,
+                        name: attachment.name.substring(0, attachment.name.lastIndexOf("."))+'.webp',
+                    }]})
 
                 if(e.content.length > 0){
-                    e.reply("マークダウンを適用中")
+                    await e.reply("マークダウンを適用中")
                     d = await Image.ImageToWebp(await Image.getScreenshot(Buffer.from(d).toString('base64'),Marked.marked(e.content)))
                 }
 
-                e.reply("完成画像をWebpに変換中")
+                await e.reply("完成画像をWebpに変換中")
                 const convertedBufferData = Buffer.from(d)
 
                 const sendOption = {
